@@ -6,18 +6,63 @@
     <title>Weather App</title>
 </head>
 <body>
-    <input class="city-input" type="text">
-    <select name="" class="lang-input">
-        <option value="ar">Arabic</option>
-        <option value="en">english</option>
-    </select>
-    <button class="get-info-btn">get info</button>
+    <div style="display: none;">
+        <input class="city-input" type="text">
+        <select name="" class="lang-input">
+            <option value="ar">Arabic</option>
+            <option value="en">english</option>
+        </select>
+        <button class="get-info-btn">get info</button>
+    </div>
     <div class="info-div">
-        <img class="condition-icon" src="" alt="">
-        <p class="condition-text"></p>
-        <p class="temp-text"></p>
-        <p class="humidity-text"></p>
-        <p class="wind-speed-text"></p>
+        <div class="main-section">
+            <p class="location-text"></p>
+            <p class="day-text"></p>
+            <img class="condition-icon" src="" alt="">
+            <p class="condition-text"></p>
+        </div>
+        <div class="current-section">
+            <p class="avg-temp-text"></p>
+            <p class="max-temp-text"></p>
+            <p class="min-temp-text"></p>
+            <p class="humidity-text"></p>
+            <p class="wind-speed-text"></p>
+            <p class="persipitation-text"></p>
+        </div>
+        <div class="hours-section">
+            <div class="hours-list">
+                <div class="item">
+                    <p class="time"></p>
+                    <img src="" alt="">
+                    <p class="temp"></p>
+                </div>
+                <div class="item">
+                    <p class="time"></p>
+                    <img src="" alt="">
+                    <p class="temp"></p>
+                </div>
+                <div class="item">
+                    <p class="time"></p>
+                    <img src="" alt="">
+                    <p class="temp"></p>
+                </div>
+                <div class="item">
+                    <p class="time"></p>
+                    <img src="" alt="">
+                    <p class="temp"></p>
+                </div>
+                <div class="item">
+                    <p class="time"></p>
+                    <img src="" alt="">
+                    <p class="temp"></p>
+                </div>
+                <div class="item">
+                    <p class="time"></p>
+                    <img src="" alt="">
+                    <p class="temp"></p>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

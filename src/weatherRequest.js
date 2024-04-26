@@ -1,8 +1,7 @@
 const key = "cd2e59453b324bcf890145402242204";
-const days = 6;
 let data = null;
 
-async function sendRequest(_city, _lang) {
+async function sendRequest(_city, _lang, days) {
   const url = `https://api.weatherapi.com/v1/forecast.json?q=${_city}&key=${key}&days=${days}&lang=${_lang}`;
   try {
     console.log("Sending request...");
@@ -29,8 +28,8 @@ function handleRequestError(response) {
 //   if (data != null) console.log(data.forecast.forecastday[0].day.avgtemp_c);
 // }, null);
 
-function getData(city, lang, callback) {
-  sendRequest(city, lang).then(() => {
+function getData(city, lang, days, callback) {
+  sendRequest(city, lang, days).then(() => {
     if (data != null) {
       callback(data);
     } else {

@@ -4,6 +4,7 @@ import getData from "./weatherRequest.js";
 import { setWeatherUI } from "./visual.js";
 
 const hoursAhead = 6;
+const days = 6;
 const weekDays = [
   "Sunday",
   "Monday",
@@ -16,7 +17,7 @@ const weekDays = [
 let data;
 
 function getWeatherData(city, lang) {
-  getData(city, lang, onDataReceive);
+  getData(city, lang, days, onDataReceive);
 }
 
 function onDataReceive(input) {
@@ -41,6 +42,8 @@ function display(day = 0) {
   const curHourMinute = localTime[1].split(":");
   const curHourString = curHourMinute[0];
   const curHour = Number(curHourString);
+
+  const receivedDays = data.forecast.forecastday.length;
 
   const hours = Array(hoursAhead);
 
@@ -73,6 +76,7 @@ function display(day = 0) {
     windSpeed,
     persipitation,
     hours,
+    receivedDays,
   );
 }
 

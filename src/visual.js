@@ -47,6 +47,7 @@ function setWeatherUI(
   windSpeed,
   persipitation,
   hours,
+  receivedDays,
 ) {
   conditionIcon.src = conimg;
   conditionText.textContent = contxt;
@@ -82,6 +83,10 @@ function setWeatherUI(
   //[yy,mm,dd]
   const localDateSplitted = localDate.split("-");
   for (let i = 0; i < buttons.length; i++) {
+    if (i >= receivedDays) {
+      buttons[i--].remove();
+      continue;
+    }
     const curDay = Number(localDateSplitted[2]) + i;
     console.log(typeof curDay + " " + curDay);
     const localDateMerged =

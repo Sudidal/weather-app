@@ -1,8 +1,9 @@
 const key = "cd2e59453b324bcf890145402242204";
+const days = 6;
 let data = null;
 
 async function sendRequest(_city, _lang) {
-  const url = `https://api.weatherapi.com/v1/forecast.json?q=${_city}&key=${key}&days=3&lang=${_lang}`;
+  const url = `https://api.weatherapi.com/v1/forecast.json?q=${_city}&key=${key}&days=${days}&lang=${_lang}`;
   try {
     console.log("Sending request...");
     const responseObject = await fetch(url);

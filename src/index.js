@@ -4,41 +4,68 @@ import getData from "./weatherRequest.js";
 import { setWeatherUI } from "./visual.js";
 
 const hoursAhead = 6;
+const weekDays = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+let data;
 
 function getWeatherData(city, lang) {
   getData(city, lang, onDataReceive);
 }
 
-function onDataReceive(data) {
-  const conimg = data.current.condition.icon;
-  const contxt = data.current.condition.text;
-  const location = data.location.name;
-  const day = data.forecast.forecastday[0].date;
-  const avgtemp = data.forecast.forecastday[0].day.avgtemp_c;
-  const maxtemp = data.forecast.forecastday[0].day.maxtemp_c;
-  const mintemp = data.forecast.forecastday[0].day.mintemp_c;
-  const humidity = data.current.humidity;
-  const windSpeed = data.current.wind_kph;
-  const persipitation = data.forecast.forecastday[0].day.daily_chance_of_rain;
+function onDataReceive(input) {
+  data = input;
+  display();
+}
 
-  const hours = Array(6);
+function display(day = 0) {
+  const localTime = data.location.localtime.split(" ");
+
+  const conimg = data.forecast.forecastday[day].day.condition.icon;
+  const contxt = data.forecast.forecastday[day].day.condition.text;
+  const location = data.location.name;
+  const curDate = data.forecast.forecastday[day].date;
+  const avgtemp = data.forecast.forecastday[day].day.avgtemp_c;
+  const maxtemp = data.forecast.forecastday[day].day.maxtemp_c;
+  const mintemp = data.forecast.forecastday[day].day.mintemp_c;
+  const humidity = data.forecast.forecastday[day].day.avghumidity;
+  const windSpeed = data.forecast.forecastday[day].day.maxwind_kph;
+  const persipitation = data.forecast.forecastday[day].day.daily_chance_of_rain;
+
+  const curHourMinute = localTime[1].split(":");
+  const curHourString = curHourMinute[0];
+  const curHour = Number(curHourString);
+
+  const hours = Array(hoursAhead);
+
+  let startFrom = curHour;
+  if (curHour + hoursAhead - 1 > 23) {
+    startFrom = 23 - hoursAhead + 1;
+  }
   for (let i = 0; i < hoursAhead; i++) {
-    const hour = i;
-    const img = data.forecast.forecastday[0].hour[i].condition.icon;
-    const temp = data.forecast.forecastday[0].hour[i].temp_c;
+    const hour = startFrom;
+    const img = data.forecast.forecastday[day].hour[startFrom].condition.icon;
+    const temp = data.forecast.forecastday[day].hour[startFrom].temp_c;
     const obj = {
       hour,
       img,
       temp,
     };
     hours[i] = obj;
+    startFrom++;
   }
-  console.log(hours);
   setWeatherUI(
     conimg,
     contxt,
     location,
-    day,
+    curDate,
+    localTime[0],
     avgtemp,
     maxtemp,
     mintemp,
@@ -49,7 +76,19 @@ function onDataReceive(data) {
   );
 }
 
+function changeDay(day) {
+  display(day);
+}
+
+function getDayNameByDate(input) {
+  const date = new Date(input);
+  const day = date.getDay();
+  return weekDays[day];
+}
+
+console.log("debug hererere");
+
 // console.log("debuggg here")
 getWeatherData("hilla iraq", "en");
 
-export { getWeatherData };
+export { getWeatherData, changeDay, getDayNameByDate };

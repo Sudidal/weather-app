@@ -7,9 +7,9 @@
 
 body {
     height: 100vh;
+    
 }
 .info-div {
-    background-color: red;
     display: grid;
     height: 100%;
     grid-template-columns: 1fr 1fr;

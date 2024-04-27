@@ -1,4 +1,6 @@
 import { getWeatherData, changeDay, getDayNameByDate } from "./index.js";
+import { getWallpaperAndAttribute } from "./wallpaperPicker.js";
+import { getModule } from "./requireModules.cjs";
 
 const getInfoBtn = document.querySelector(".get-info-btn");
 const cityInput = document.querySelector(".city-input");
@@ -88,12 +90,23 @@ function setWeatherUI(
       continue;
     }
     const curDay = Number(localDateSplitted[2]) + i;
-    console.log(typeof curDay + " " + curDay);
     const localDateMerged =
       localDateSplitted[0] + "-" + localDateSplitted[1] + "-" + curDay;
-    console.log(localDateMerged);
     buttons[i].textContent = getDayNameByDate(localDateMerged);
   }
 }
 
-export { setWeatherUI };
+function setWallpaper(code) {
+  const imageName = getWallpaperAndAttribute(code);
+  let path = getModule(`./${imageName}/${imageName}-img.jpg`);
+  if (path == undefined) {
+    path = getModule(`./${imageName}/${imageName}-img.png`);
+  }
+  if (path == undefined) {
+    console.error("Couldn't find Background Photo!");
+    return;
+  }
+  document.body.style.backgroundImage = `url(${path})`;
+}
+
+export { setWeatherUI, setWallpaper };

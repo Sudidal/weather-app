@@ -34,7 +34,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/i,
+        test: /\.(js||cjs|jsx)$/i,
         loader: "babel-loader",
       },
       {

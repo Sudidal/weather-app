@@ -1,7 +1,8 @@
 import "./visual.js";
+import "./requireModules.cjs";
 import "./style.css";
 import getData from "./weatherRequest.js";
-import { setWeatherUI } from "./visual.js";
+import { setWeatherUI, setWallpaper } from "./visual.js";
 
 const hoursAhead = 6;
 const days = 6;
@@ -45,6 +46,8 @@ function display(day = 0) {
 
   const receivedDays = data.forecast.forecastday.length;
 
+  const conditionCode = data.forecast.forecastday[day].day.condition.code;
+
   const hours = Array(hoursAhead);
 
   let startFrom = curHour;
@@ -78,6 +81,7 @@ function display(day = 0) {
     hours,
     receivedDays,
   );
+  setWallpaper(conditionCode);
 }
 
 function changeDay(day) {
@@ -93,6 +97,6 @@ function getDayNameByDate(input) {
 console.log("debug hererere");
 
 // console.log("debuggg here")
-getWeatherData("hilla iraq", "en");
+getWeatherData("mosco", "en");
 
 export { getWeatherData, changeDay, getDayNameByDate };

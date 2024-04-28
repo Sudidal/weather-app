@@ -6,6 +6,7 @@
     <title>Weather App</title>
 </head>
 <body>
+    <img class="bg-image" src="" alt="">
     <div style="display: none;">
         <input class="city-input" type="text">
         <select name="" class="lang-input">
@@ -14,32 +15,75 @@
         </select>
         <button class="get-info-btn">get info</button>
     </div>
+    <div class="panel">
     <div class="info-div">
         <div class="day-select-section">
             <div class="buttons-list">
-                <button>Tuesday</button>
-                <button>Thursday</button>
-                <button>Friday</button>
-                <button>Friday</button>
-                <button>Friday</button>
-                <button>Friday</button>
+                <button>
+                    <span>Sun</span>
+                    <img src="" alt="">
+                </button>
+                <button>
+                    <span>Mon</span>
+                    <img src="" alt=""></button>
+                <button>
+                    <span>Tue</span>
+                    <img src="" alt=""></button>
+                <button>
+                    <span>Wed</span>
+                    <img src="" alt=""></button>
+                <button>
+                    <span>Thu</span>
+                    <img src="" alt=""></button>
+                <button>
+                    <span>Fri</span>
+                    <img src="" alt=""></button>
+                    <button>
+                    <span>Sat</span>
+                    <img src="" alt=""></button>
             </div>
         </div>
         <div class="main-section">
-            <p class="location-text"></p>
-            <p class="day-text"></p>
-            <img class="condition-icon" src="" alt="">
-            <p class="condition-text"></p>
+            <div>
+                <p class="location-text"></p>
+                <p class="day-text"></p>
+                <img class="condition-icon" src="" alt="">
+                <p class="condition-text"></p>
+            </div>
         </div>
         <div class="current-section">
             <p class="avg-temp-text"></p>
-            <p class="max-temp-text"></p>
-            <p class="min-temp-text"></p>
-            <p class="humidity-text"></p>
-            <p class="wind-speed-text"></p>
-            <p class="persipitation-text"></p>
+            <div class="temp-div">
+                <p class="max-temp-text"></p>
+                <p class="">/</p>
+                <p class="min-temp-text"></p>
+            </div>
+            <div>
+                <img class="persipitation-img" src="" alt="" width="50px">
+                <div class="text-part">
+                    <p class="persipitation-text"></p>
+                    <p>Persipitation</p>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <img class="humidity-img" src="" alt="" width="50px">
+                    <div class="text-part">
+                        <p class="humidity-text"></p>
+                        <p>Humidity</p>
+                    </div>
+                </div>
+                <div>
+                    <img class="wind-img" src="" alt="" width="50px">
+                    <div class="text-part">
+                        <p class="wind-speed-text"></p>
+                        <p>Wind</p>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="hours-section">
+        <hr class="hours-ruler">
             <div class="hours-list">
                 <div class="item">
                     <p class="time"></p>
@@ -73,6 +117,10 @@
                 </div>
             </div>
         </div>
+    </div>
+    </div>
+    <div class="attribute">
+        <div class="attribute-text"></div>
     </div>
 </body>
 </html>

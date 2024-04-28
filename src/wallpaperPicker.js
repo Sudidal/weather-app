@@ -1,6 +1,5 @@
 function getWallpaperAndAttribute(code) {
-  const info = pickImage(code);
-  const image = info[0];
+  const image = pickImage(code);
   return image;
 }
 
@@ -45,11 +44,9 @@ function pickImage(c) {
     console.log("Code wasn't assigned, Fallback to Overcast");
     name = "Overcast";
   }
-
+  console.log(name);
   const img = name;
-  const attribute = `/Images/${name}/${name}-attribute`;
-  console.log(img);
-  return [img, attribute];
+  return img;
 }
 
 export { getWallpaperAndAttribute };

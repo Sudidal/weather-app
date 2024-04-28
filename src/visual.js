@@ -1,10 +1,18 @@
 import { getWeatherData, changeDay, getDayNameByDate } from "./index.js";
 import { getWallpaperAndAttribute } from "./wallpaperPicker.js";
-import { getModule } from "./requireModules.cjs";
+import { getModule, getAttribute } from "./requireModules.cjs";
+import { readFile } from "./fileReader.js";
+
+const backGround = document.querySelector(".bg-image");
+const attributeParent = document.querySelector(".attribute");
 
 const getInfoBtn = document.querySelector(".get-info-btn");
 const cityInput = document.querySelector(".city-input");
 const langInput = document.querySelector(".lang-input");
+
+const PersipitationImg = document.querySelector(".persipitation-img");
+const humidityImg = document.querySelector(".humidity-img");
+const windImg = document.querySelector(".wind-img");
 
 const conditionIcon = document.querySelector(".condition-icon");
 const conditionText = document.querySelector(".condition-text");
@@ -41,7 +49,7 @@ function setWeatherUI(
   contxt,
   location,
   curDate,
-  localDate,
+  days,
   avgtemp,
   maxtemp,
   mintemp,
@@ -51,16 +59,24 @@ function setWeatherUI(
   hours,
   receivedDays,
 ) {
+  if (contxt === "Sunny") {
+    conimg = getModule("./Icons/Sunny-icon.png");
+  }
+
   conditionIcon.src = conimg;
   conditionText.textContent = contxt;
   locationText.textContent = location;
   dayText.textContent = " " + getDayNameByDate(curDate) + " " + curDate;
-  avgTempText.textContent = avgtemp + "c°";
-  maxTempText.textContent = maxtemp + "c°";
-  minTempText.textContent = mintemp + "c°";
-  humidityText.textContent = "humidity " + humidity + "%";
-  windSpeedText.textContent = windSpeed + "kph";
-  percipitationText.textContent = "persipitation " + persipitation + "%";
+  avgTempText.textContent = Math.round(avgtemp) + "c°";
+  maxTempText.textContent = Math.round(maxtemp) + "c°";
+  minTempText.textContent = Math.round(mintemp) + "c°";
+  humidityText.textContent = humidity + "%";
+  windSpeedText.textContent = Math.round(windSpeed) + "kph";
+  percipitationText.textContent = persipitation + "%";
+
+  PersipitationImg.src = getModule("./Icons/Persipitation.png");
+  humidityImg.src = getModule("./Icons/Humidity.png");
+  windImg.src = getModule("./Icons/Wind.png");
 
   //hours
   for (let i = 0; i < hours.length; i++) {
@@ -77,36 +93,54 @@ function setWeatherUI(
     }
 
     element.querySelector(".time").textContent = hour + timeSymbol;
-    element.querySelector(".temp").textContent = hours[i].temp;
+    element.querySelector(".temp").textContent =
+      Math.round(hours[i].temp) + "c°";
     element.querySelector("img").src = hours[i].img;
   }
   //days buttons
-  //yy-mm-dd
-  //[yy,mm,dd]
-  const localDateSplitted = localDate.split("-");
   for (let i = 0; i < buttons.length; i++) {
     if (i >= receivedDays) {
       buttons[i--].remove();
       continue;
     }
-    const curDay = Number(localDateSplitted[2]) + i;
-    const localDateMerged =
-      localDateSplitted[0] + "-" + localDateSplitted[1] + "-" + curDay;
-    buttons[i].textContent = getDayNameByDate(localDateMerged);
+    let btnClassName = "unselected";
+    const date = days[i].date;
+    if (date === curDate) {
+      btnClassName = "selected";
+    }
+    const img = days[i].day.condition.icon;
+    const day = getDayNameByDate(date);
+    const button = buttons[i];
+    button.className = btnClassName;
+    button.querySelector("span").textContent = day;
+    const image = button.querySelector("img");
+    image.src = img;
   }
 }
 
 function setWallpaper(code) {
   const imageName = getWallpaperAndAttribute(code);
-  let path = getModule(`./${imageName}/${imageName}-img.jpg`);
-  if (path == undefined) {
-    path = getModule(`./${imageName}/${imageName}-img.png`);
+  let image = getModule(`./${imageName}/${imageName}-img.jpg`);
+  const attributeFilePath = getAttribute(
+    `./${imageName}/${imageName}-attribute.json`,
+  );
+  console.log(attributeFilePath);
+  readFile(attributeFilePath).then(setAttribute);
+  if (image == undefined) {
+    image = getModule(`./${imageName}/${imageName}-img.png`);
   }
-  if (path == undefined) {
+  if (image == undefined) {
     console.error("Couldn't find Background Photo!");
     return;
   }
-  document.body.style.backgroundImage = `url(${path})`;
+
+  backGround.src = image;
+}
+function setAttribute(input) {
+  if (input) {
+    const wrapper = attributeParent.querySelector(".attribute-text");
+    wrapper.innerHTML = input.data;
+  }
 }
 
 export { setWeatherUI, setWallpaper };

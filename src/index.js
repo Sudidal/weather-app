@@ -5,16 +5,8 @@ import getData from "./weatherRequest.js";
 import { setWeatherUI, setWallpaper } from "./visual.js";
 
 const hoursAhead = 6;
-const days = 6;
-const weekDays = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
+const days = 7;
+const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 let data;
 
 function getWeatherData(city, lang) {
@@ -28,6 +20,7 @@ function onDataReceive(input) {
 
 function display(day = 0) {
   const localTime = data.location.localtime.split(" ");
+  const days = data.forecast.forecastday;
 
   const conimg = data.forecast.forecastday[day].day.condition.icon;
   const contxt = data.forecast.forecastday[day].day.condition.text;
@@ -71,7 +64,7 @@ function display(day = 0) {
     contxt,
     location,
     curDate,
-    localTime[0],
+    days,
     avgtemp,
     maxtemp,
     mintemp,
@@ -96,7 +89,6 @@ function getDayNameByDate(input) {
 
 console.log("debug hererere");
 
-// console.log("debuggg here")
-getWeatherData("mosco", "en");
+getWeatherData("erbil", "en");
 
 export { getWeatherData, changeDay, getDayNameByDate };

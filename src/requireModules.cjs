@@ -1,17 +1,27 @@
-const cache = {};
+const images = {};
+const attributes = {};
 
-function importAll(r) {
+function importImages(r) {
   const keysArray = r.keys();
   keysArray.forEach((key) => {
-    cache[key] = r(key);
+    images[key] = r(key);
+  });
+}
+function importAttributes(r) {
+  const keysArray = r.keys();
+  keysArray.forEach((key) => {
+    attributes[key] = r(key);
   });
 }
 
-importAll(require.context("../Images/", true, /\.(png|jpg|svg)$/));
-
+importImages(require.context("../Images/", true, /\.(png|jpg|svg)$/));
+importAttributes(require.context("../Images/", true, /\.json$/));
 function getModule(input) {
-  return cache[input];
+  return images[input];
 }
-const ass = "Sunny";
-console.log(getModule(`./${ass}/${ass}-img.jpg`));
-module.exports = { getModule };
+function getAttribute(input) {
+  const output = attributes[input];
+  if (output) return output;
+  else console.log("no attribute for this resource");
+}
+module.exports = { getModule, getAttribute };

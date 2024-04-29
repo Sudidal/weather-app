@@ -1,14 +1,43 @@
 import "./visual.js";
-import "./settingsMenu.js";
+import "./optionsMenu.js";
 import "./requireModules.cjs";
 import "./style.css";
 import getData from "./weatherRequest.js";
-import { setWeatherUI, setWallpaper } from "./visual.js";
+import { assign, getDataObject } from "./getDataObject";
+import { setWeatherUI } from "./visual.js";
 
 const hoursAhead = 6;
 const days = 7;
 const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 let data;
+
+let options;
+function createOptions() {
+  let tempUnit = "";
+  let disUnit = "";
+  let THS = "";
+  let city = "";
+
+  const setTempUnit = (i) => (tempUnit = i);
+  const setDisUnit = (i) => (disUnit = i);
+  const setTHS = (i) => (THS = i);
+  const setCity = (i) => (city = i);
+  const getTempUnit = () => tempUnit;
+  const getDisUnit = () => disUnit;
+  const getTHS = () => THS;
+  const getCity = () => city;
+
+  return {
+    setTempUnit,
+    setDisUnit,
+    setTHS,
+    setCity,
+    getTempUnit,
+    getDisUnit,
+    getTHS,
+    getCity,
+  };
+}
 
 function getWeatherData(city, lang) {
   getData(city, lang, days, onDataReceive);
@@ -20,62 +49,19 @@ function onDataReceive(input) {
 }
 
 function display(day = 0) {
-  const localTime = data.location.localtime.split(" ");
-  const days = data.forecast.forecastday;
+  assign(data);
+  const dataObj = getDataObject(day, hoursAhead);
 
-  const conimg = data.forecast.forecastday[day].day.condition.icon;
-  const contxt = data.forecast.forecastday[day].day.condition.text;
-  const location = data.location.name;
-  const curDate = data.forecast.forecastday[day].date;
-  const avgtemp = data.forecast.forecastday[day].day.avgtemp_c;
-  const maxtemp = data.forecast.forecastday[day].day.maxtemp_c;
-  const mintemp = data.forecast.forecastday[day].day.mintemp_c;
-  const humidity = data.forecast.forecastday[day].day.avghumidity;
-  const windSpeed = data.forecast.forecastday[day].day.maxwind_kph;
-  const persipitation = data.forecast.forecastday[day].day.daily_chance_of_rain;
+  setWeatherUI(dataObj, options);
+}
 
-  const curHourMinute = localTime[1].split(":");
-  const curHourString = curHourMinute[0];
-  const curHour = Number(curHourString);
+function updateOptions(newOptions) {
+  options.setTempUnit(newOptions.tempValue);
+  options.setDisUnit(newOptions.disValue);
+  options.setTHS(newOptions.THS);
+  options.setCity(newOptions.cityValue);
 
-  const receivedDays = data.forecast.forecastday.length;
-
-  const conditionCode = data.forecast.forecastday[day].day.condition.code;
-
-  const hours = Array(hoursAhead);
-
-  let startFrom = curHour;
-  if (curHour + hoursAhead - 1 > 23) {
-    startFrom = 23 - hoursAhead + 1;
-  }
-  for (let i = 0; i < hoursAhead; i++) {
-    const hour = startFrom;
-    const img = data.forecast.forecastday[day].hour[startFrom].condition.icon;
-    const temp = data.forecast.forecastday[day].hour[startFrom].temp_c;
-    const obj = {
-      hour,
-      img,
-      temp,
-    };
-    hours[i] = obj;
-    startFrom++;
-  }
-  setWeatherUI(
-    conimg,
-    contxt,
-    location,
-    curDate,
-    days,
-    avgtemp,
-    maxtemp,
-    mintemp,
-    humidity,
-    windSpeed,
-    persipitation,
-    hours,
-    receivedDays,
-  );
-  setWallpaper(conditionCode);
+  getWeatherData(options.getCity(), "en");
 }
 
 function changeDay(day) {
@@ -88,8 +74,12 @@ function getDayNameByDate(input) {
   return weekDays[day];
 }
 
-console.log("debug hererere");
+options = createOptions();
+options.setTempUnit("c");
+options.setDisUnit("kph");
+options.setTHS(false);
+options.setCity("cairo");
 
-getWeatherData("erbil", "en");
+getWeatherData(options.getCity(), "en");
 
-export { getWeatherData, changeDay, getDayNameByDate };
+export { getWeatherData, changeDay, getDayNameByDate, updateOptions };

@@ -219,6 +219,7 @@ button {
 }
 .settings-dialog .main-label {
   grid-column: 1 / 2;
+  font-size: 15px;
 }
 .settings-dialog input, .settings-dialog span {
   grid-column: 2 / 3;
@@ -268,7 +269,7 @@ button {
 .settings-dialog input[type="checkbox"]{
   width: fit-content;
 }
-.settings-dialog .attribute {
+.attribute {
   position: absolute;
   bottom: 20px;
   font-size: 12px;

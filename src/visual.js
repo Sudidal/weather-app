@@ -2,7 +2,7 @@ import { getWeatherData, changeDay, getDayNameByDate } from "./index.js";
 import { getWallpaperAndAttribute } from "./wallpaperPicker.js";
 import { getModule, getAttribute } from "./requireModules.cjs";
 import { readFile } from "./fileReader.js";
-import { openMenu } from "./settingsMenu.js";
+import { openMenu } from "./optionsMenu.js";
 
 const backGround = document.querySelector(".bg-image");
 const attributeParent = document.querySelector(".attribute");
@@ -51,35 +51,25 @@ for (let i = 0; i < buttons.length; i++) {
   });
 }
 
-function setWeatherUI(
-  conimg,
-  contxt,
-  location,
-  curDate,
-  days,
-  avgtemp,
-  maxtemp,
-  mintemp,
-  humidity,
-  windSpeed,
-  persipitation,
-  hours,
-  receivedDays,
-) {
-  if (contxt === "Sunny") {
-    conimg = getModule("./Icons/Sunny-icon.png");
+function setWeatherUI(data, options) {
+  conditionIcon.src = data.getConImg();
+  if (data.getConTxt() === "Sunny") {
+    conditionIcon.src = getModule("./Icons/Sunny-icon.png");
   }
+  const tempUnit = options.getTempUnit();
+  const disUnit = options.getDisUnit();
+  const THS = options.getTHS();
 
-  conditionIcon.src = conimg;
-  conditionText.textContent = contxt;
-  locationText.textContent = location;
-  dayText.textContent = " " + getDayNameByDate(curDate) + " " + curDate;
-  avgTempText.textContent = Math.round(avgtemp) + "c°";
-  maxTempText.textContent = Math.round(maxtemp) + "c°";
-  minTempText.textContent = Math.round(mintemp) + "c°";
-  humidityText.textContent = humidity + "%";
-  windSpeedText.textContent = Math.round(windSpeed) + "kph";
-  percipitationText.textContent = persipitation + "%";
+  conditionText.textContent = data.getConTxt();
+  locationText.textContent = data.getLocation();
+  dayText.textContent =
+    " " + getDayNameByDate(data.getCurDate()) + " " + data.getCurDate();
+  avgTempText.textContent = Math.round(data.getAvgTemp(tempUnit)) + tempUnit;
+  maxTempText.textContent = Math.round(data.getMaxTemp(tempUnit)) + tempUnit;
+  minTempText.textContent = Math.round(data.getMinTemp(tempUnit)) + tempUnit;
+  humidityText.textContent = data.getHumidity() + "%";
+  windSpeedText.textContent = Math.round(data.getWind(disUnit)) + disUnit;
+  percipitationText.textContent = data.getPersipitation() + "%";
 
   PersipitationImg.src = getModule("./Icons/Persipitation.png");
   humidityImg.src = getModule("./Icons/Humidity.png");
@@ -88,33 +78,37 @@ function setWeatherUI(
   settingsIcon.src = getModule("./Icons/Settings.png");
 
   //hours
+  const hours = data.getHoursForecast();
   for (let i = 0; i < hours.length; i++) {
     const element = hoursList.children[i];
 
     let hour = hours[i].hour;
-    let timeSymbol = "AM";
-    if (hour === 0) {
-      hour = 12;
-    }
-    if (hour > 12) {
-      hour -= 12;
-      timeSymbol = "PM";
+    let timeExtension = ":00";
+    if (THS) {
+      if (hour === 0) {
+        hour = 12;
+      }
+      if (hour > 12) {
+        hour -= 12;
+        timeExtension = "PM";
+      } else [(timeExtension = "AM")];
     }
 
-    element.querySelector(".time").textContent = hour + timeSymbol;
+    element.querySelector(".time").textContent = hour + timeExtension;
     element.querySelector(".temp").textContent =
-      Math.round(hours[i].temp) + "c°";
+      Math.round(hours[i].temp) + tempUnit;
     element.querySelector("img").src = hours[i].img;
   }
   //days buttons
+  const days = data.getDaysForecast();
   for (let i = 0; i < buttons.length; i++) {
-    if (i >= receivedDays) {
+    if (i >= data.getReceivedDaysCount) {
       buttons[i--].remove();
       continue;
     }
     let btnClassName = "unselected";
     const date = days[i].date;
-    if (date === curDate) {
+    if (date === data.getCurDate()) {
       btnClassName = "selected";
     }
     const img = days[i].day.condition.icon;
@@ -125,6 +119,7 @@ function setWeatherUI(
     const image = button.querySelector("img");
     image.src = img;
   }
+  setWallpaper(data.getConditionCode());
 }
 
 function setWallpaper(code) {
@@ -152,4 +147,4 @@ function setAttribute(input) {
   }
 }
 
-export { setWeatherUI, setWallpaper };
+export { setWeatherUI };

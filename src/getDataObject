@@ -9,7 +9,7 @@ function getDataObject(day, hoursAhead) {
   const getDaysForecast = () => data.forecast.forecastday;
   const getConImg = () => data.forecast.forecastday[day].day.condition.icon;
   const getConTxt = () => data.forecast.forecastday[day].day.condition.text;
-  const getLocation = () => data.location.name;
+  const getLocation = () => data.location;
   const getCurDate = () => data.forecast.forecastday[day].date;
   const getHumidity = () => data.forecast.forecastday[day].day.avghumidity;
   const getPersipitation = () =>

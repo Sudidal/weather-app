@@ -20,7 +20,8 @@ const settingsIcon = document.querySelector(".settings-img");
 
 const conditionIcon = document.querySelector(".condition-icon");
 const conditionText = document.querySelector(".condition-text");
-const locationText = document.querySelector(".location-text");
+const cityText = document.querySelector(".city-text");
+const countryText = document.querySelector(".country-text");
 const dayText = document.querySelector(".day-text");
 
 const avgTempText = document.querySelector(".avg-temp-text");
@@ -61,12 +62,16 @@ function setWeatherUI(data, options) {
   const THS = options.getTHS();
 
   conditionText.textContent = data.getConTxt();
-  locationText.textContent = data.getLocation();
+  cityText.textContent = data.getLocation().name;
+  countryText.textContent = data.getLocation().country;
   dayText.textContent =
     " " + getDayNameByDate(data.getCurDate()) + " " + data.getCurDate();
-  avgTempText.textContent = Math.round(data.getAvgTemp(tempUnit)) + tempUnit;
-  maxTempText.textContent = Math.round(data.getMaxTemp(tempUnit)) + tempUnit;
-  minTempText.textContent = Math.round(data.getMinTemp(tempUnit)) + tempUnit;
+  avgTempText.textContent =
+    Math.round(data.getAvgTemp(tempUnit)) + "°" + tempUnit.toUpperCase();
+  maxTempText.textContent =
+    Math.round(data.getMaxTemp(tempUnit)) + "°" + tempUnit.toUpperCase();
+  minTempText.textContent =
+    Math.round(data.getMinTemp(tempUnit)) + "°" + tempUnit.toUpperCase();
   humidityText.textContent = data.getHumidity() + "%";
   windSpeedText.textContent = Math.round(data.getWind(disUnit)) + disUnit;
   percipitationText.textContent = data.getPersipitation() + "%";
@@ -96,7 +101,7 @@ function setWeatherUI(data, options) {
 
     element.querySelector(".time").textContent = hour + timeExtension;
     element.querySelector(".temp").textContent =
-      Math.round(hours[i].temp) + tempUnit;
+      Math.round(hours[i].temp) + "°" + tempUnit.toUpperCase();
     element.querySelector("img").src = hours[i].img;
   }
   //days buttons
@@ -128,7 +133,6 @@ function setWallpaper(code) {
   const attributeFilePath = getAttribute(
     `./${imageName}/${imageName}-attribute.json`,
   );
-  console.log(attributeFilePath);
   readFile(attributeFilePath).then(setAttribute);
   if (image == undefined) {
     image = getModule(`./${imageName}/${imageName}-img.png`);

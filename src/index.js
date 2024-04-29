@@ -1,4 +1,5 @@
 import "./visual.js";
+import { getLocation } from "./getUserLocation.js";
 import "./optionsMenu.js";
 import "./requireModules.cjs";
 import "./style.css";
@@ -74,12 +75,25 @@ function getDayNameByDate(input) {
   return weekDays[day];
 }
 
-options = createOptions();
-options.setTempUnit("c");
-options.setDisUnit("kph");
-options.setTHS(false);
-options.setCity("cairo");
+getLocation(onLocationReceive);
 
-getWeatherData(options.getCity(), "en");
+function onLocationReceive(input) {
+  options = createOptions();
+  options.setTempUnit("c");
+  options.setDisUnit("kph");
+  options.setTHS(false);
+  options.setCity(input[0] + " " + input[1]);
+  getWeatherData(options.getCity(), "en");
+}
 
-export { getWeatherData, changeDay, getDayNameByDate, updateOptions };
+function getOptions() {
+  return options;
+}
+
+export {
+  getWeatherData,
+  changeDay,
+  getDayNameByDate,
+  updateOptions,
+  getOptions,
+};

@@ -1,5 +1,4 @@
 async function readFile(input) {
-  console.log(input);
   try {
     const response = await fetch(input);
     const data = await response.json();

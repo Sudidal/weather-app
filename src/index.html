@@ -3,175 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather App</title>
+    <title>Easy Weather</title>
 </head>
-<body>
-    <img class="bg-image" src="" alt="">
-    <div style="display: none;">
-        <input class="city-input" type="text">
-        <select name="" class="lang-input">
-            <option value="ar">Arabic</option>
-            <option value="en">english</option>
-        </select>
-        <button class="get-info-btn">get info</button>
+<body class="welcome-body">
+    <div class="wrapper">
+        <p class="header">Welcome to Easy Weather</p>
+        <p>To start using Easy Weather we need to know your location</p>
+        <button class="find-location-btn">Find my location</button>
+        <p>or</p>
+        <p>Manually enter you location</p>
+        <div>
+            <input class="city-input" type="text" placeholder="city">
+            <input class="country-input" type="text" placeholder="country">
+        </div>
+        <button class="get-started-btn" disabled>Get Started</button>
     </div>
-    <div class="panel" >
-    <div class="info-div">
-        <div class="settings-icon">
-            <button class="settings-btn">
-                <img class="settings-img" src="" alt="" width="50px">
-            </button>
-        </div>
-        <div class="day-select-section">
-            <div class="buttons-list">
-                <button>
-                    <span>Sun</span>
-                    <img src="" alt="">
-                </button>
-                <button>
-                    <span>Mon</span>
-                    <img src="" alt=""></button>
-                <button>
-                    <span>Tue</span>
-                    <img src="" alt=""></button>
-                <button>
-                    <span>Wed</span>
-                    <img src="" alt=""></button>
-                <button>
-                    <span>Thu</span>
-                    <img src="" alt=""></button>
-                <button>
-                    <span>Fri</span>
-                    <img src="" alt=""></button>
-                    <button>
-                    <span>Sat</span>
-                    <img src="" alt=""></button>
-            </div>
-        </div>
-        <div class="main-section">
-            <div>
-                <p class="city-text"></p>
-                <p class="country-text"></p>
-                <p class="day-text"></p>
-                <img class="condition-icon" src="" alt="">
-                <p class="condition-text"></p>
-            </div>
-        </div>
-        <div class="current-section">
-            <p class="avg-temp-text"></p>
-            <div class="temp-div">
-                <p class="max-temp-text"></p>
-                <p class="">/</p>
-                <p class="min-temp-text"></p>
-            </div>
-            <div>
-                <img class="persipitation-img" src="" alt="" width="50px">
-                <div class="text-part">
-                    <p class="persipitation-text"></p>
-                    <p>Persipitation</p>
-                </div>
-            </div>
-            <div>
-                <div>
-                    <img class="humidity-img" src="" alt="" width="50px">
-                    <div class="text-part">
-                        <p class="humidity-text"></p>
-                        <p>Humidity</p>
-                    </div>
-                </div>
-                <div>
-                    <img class="wind-img" src="" alt="" width="50px">
-                    <div class="text-part">
-                        <p class="wind-speed-text"></p>
-                        <p>Wind</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="hours-section">
-        <hr class="hours-ruler">
-            <div class="hours-list">
-                <div class="item">
-                    <p class="time"></p>
-                    <img src="" alt="">
-                    <p class="temp"></p>
-                </div>
-                <div class="item">
-                    <p class="time"></p>
-                    <img src="" alt="">
-                    <p class="temp"></p>
-                </div>
-                <div class="item">
-                    <p class="time"></p>
-                    <img src="" alt="">
-                    <p class="temp"></p>
-                </div>
-                <div class="item">
-                    <p class="time"></p>
-                    <img src="" alt="">
-                    <p class="temp"></p>
-                </div>
-                <div class="item">
-                    <p class="time"></p>
-                    <img src="" alt="">
-                    <p class="temp"></p>
-                </div>
-                <div class="item">
-                    <p class="time"></p>
-                    <img src="" alt="">
-                    <p class="temp"></p>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-    <div class="attribute">
-        <div class="attribute-text"></div>
-    </div>
-    <dialog class="settings-dialog">
-        <button class="close-btn">x</button>
-        <div class="options">
-            <div class="option-section">
-                <label class="main-label">Temperature Unit</label>
-                <span>
-                    <span>
-                        <label for="c">C</label>
-                        <input type="radio" id="c" name="temp-unit" value="c">
-                    </span>
-                    <span>
-                        <label for="f">F</label>
-                        <input type="radio" id="f" name="temp-unit" value="f">
-                    </span>
-                </span>
-            </div>
-            <div class="option-section">
-                <label class="main-label">Distance Unit</label>
-                <span>
-                    <span>
-                        <label for="kph">kph</label>
-                        <input type="radio" id="kph" name="dis-unit" value="kph">
-                    </span>
-                    <span>
-                        <label for="mph">mph</label>
-                    <input type="radio" id="mph" name="dis-unit" value="mph">
-                    </span>
-                </span>
-            </div>
-            <div class="option-section">
-                <label class="main-label" for="hours-check">12-hours system</label>
-                <input type="checkbox" id="hours-check">
-            </div>
-            <div class="option-section">
-                <label class="main-label" for="city-input">City</label>
-                <input type="text" id="city-input" placeholder="Enter your city name">
-            </div>
-            <div class="option-section">
-                <label class="main-label" for="country-input">Country</label>
-                <input type="text" id="country-input" placeholder="Enter your country name">
-            </div>
-        </div>
-        <button class="save-btn">Save</button>
-    </div>
-    </dialog>
 </body>
 </html>

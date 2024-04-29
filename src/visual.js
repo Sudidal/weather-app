@@ -1,4 +1,4 @@
-import { getWeatherData, changeDay, getDayNameByDate } from "./index.js";
+import { getWeatherData, changeDay, getDayNameByDate } from "./weatherApp.js";
 import { getWallpaperAndAttribute } from "./wallpaperPicker.js";
 import { getModule, getAttribute } from "./requireModules.cjs";
 import { readFile } from "./fileReader.js";
@@ -6,10 +6,6 @@ import { openMenu } from "./optionsMenu.js";
 
 const backGround = document.querySelector(".bg-image");
 const attributeParent = document.querySelector(".attribute");
-
-const getInfoBtn = document.querySelector(".get-info-btn");
-const cityInput = document.querySelector(".city-input");
-const langInput = document.querySelector(".lang-input");
 
 const PersipitationImg = document.querySelector(".persipitation-img");
 const humidityImg = document.querySelector(".humidity-img");
@@ -40,11 +36,6 @@ const hoursList = document.querySelector(".hours-list");
 
 settingsBtn.addEventListener("click", () => {
   openMenu();
-});
-getInfoBtn.addEventListener("click", () => {
-  const _city = cityInput.value;
-  const _lang = langInput.value;
-  getWeatherData(_city, _lang);
 });
 for (let i = 0; i < buttons.length; i++) {
   buttons[i].addEventListener("click", () => {

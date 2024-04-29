@@ -10,12 +10,16 @@ const isProduction = process.env.NODE_ENV == "production";
 const stylesHandler = MiniCssExtractPlugin.loader;
 
 const config = {
-  entry: "./src/index.js",
+  entry: {
+    welcome: "./src/welcomePage.js",
+    app: "./src/weatherApp.js",
+  },
   output: {
+    filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
   },
   devServer: {
-    watchFiles: ["./src/index.html"],
+    watchFiles: ["./src/index.html", "./src/weatherInfo.html"],
     open: true,
     host: "localhost",
   },
@@ -23,6 +27,12 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "/src/index.html",
+      chunks: ["welcome"],
+    }),
+    new HtmlWebpackPlugin({
+      filename: "weatherInfo.html",
+      template: "/src/weatherInfo.html",
+      chunks: ["app"],
     }),
 
     new MiniCssExtractPlugin(),

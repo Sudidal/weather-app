@@ -1,8 +1,8 @@
 import "./visual.js";
-import { getLocation } from "./getUserLocation.js";
 import "./optionsMenu.js";
 import "./requireModules.cjs";
-import "./style.css";
+import "./weatherStyle.css";
+import { save, load } from "./saveLoadManager.js";
 import getData from "./weatherRequest.js";
 import { assign, getDataObject } from "./getDataObject";
 import { setWeatherUI } from "./visual.js";
@@ -16,7 +16,7 @@ let options;
 function createOptions() {
   let tempUnit = "";
   let disUnit = "";
-  let THS = "";
+  let THS = false;
   let city = "";
   let country = "";
 
@@ -45,6 +45,34 @@ function createOptions() {
   };
 }
 
+checkData();
+
+function checkData() {
+  if (load("city") !== null) {
+    if (load("tempUnit") === null) {
+      const obj = {
+        tempUnit: "c",
+        disUnit: "kph",
+        THS: true,
+      };
+      save(obj);
+    }
+    loadOptions();
+    getWeatherData("en");
+  } else {
+    console.error("No data was found please go back to the home page");
+  }
+}
+
+function loadOptions() {
+  options = createOptions();
+  options.setTempUnit(load("tempUnit"));
+  options.setDisUnit(load("disUnit"));
+  options.setTHS(JSON.parse(load("THS")));
+  options.setCity(load("city"));
+  options.setCountry(load("country"));
+}
+
 function getWeatherData(lang) {
   const location = options.getCity() + " " + options.getCountry();
   getData(location, lang, days, onDataReceive);
@@ -63,11 +91,15 @@ function display(day = 0) {
 }
 
 function updateOptions(newOptions) {
-  options.setTempUnit(newOptions.tempValue);
-  options.setDisUnit(newOptions.disValue);
-  options.setTHS(newOptions.THS);
-  options.setCity(newOptions.cityValue);
-  options.setCountry(newOptions.countryValue);
+  const obj = {
+    tempUnit: newOptions.tempValue,
+    disUnit: newOptions.disValue,
+    THS: newOptions.THS,
+    city: newOptions.cityValue,
+    country: newOptions.countryValue,
+  };
+  save(obj);
+  checkData();
   getWeatherData("en");
 }
 
@@ -81,27 +113,8 @@ function getDayNameByDate(input) {
   return weekDays[day];
 }
 
-getLocation(onLocationReceive);
-
-function onLocationReceive(input) {
-  options = createOptions();
-  options.setTempUnit("c");
-  options.setDisUnit("kph");
-  options.setTHS(false);
-  options.setCity(input[0]);
-  options.setCountry(input[1]);
-  const loc = options.getCity() + " " + options.getCountry();
-  getWeatherData("en");
-}
-
 function getOptions() {
   return options;
 }
 
-export {
-  getWeatherData,
-  changeDay,
-  getDayNameByDate,
-  updateOptions,
-  getOptions,
-};
+export { changeDay, getDayNameByDate, updateOptions, getOptions };

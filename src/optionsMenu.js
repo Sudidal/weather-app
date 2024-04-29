@@ -1,4 +1,4 @@
-import { updateOptions, getOptions } from "./index.js";
+import { updateOptions, getOptions } from "./weatherApp.js";
 
 const dialog = document.querySelector(".settings-dialog");
 const closeBtn = dialog.querySelector(".close-btn");
@@ -19,7 +19,8 @@ saveBtn.addEventListener("click", () => {
 
 function openMenu() {
   const curOptions = getOptions();
-  hoursSystem.value = curOptions.getTHS();
+  hoursSystem.checked = curOptions.getTHS();
+  console.log(typeof curOptions.getTHS() + " " + curOptions.getTHS());
   cityInput.value = curOptions.getCity();
   countryInput.value = curOptions.getCountry();
 

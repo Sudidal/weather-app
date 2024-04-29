@@ -2,6 +2,7 @@ import { getWeatherData, changeDay, getDayNameByDate } from "./index.js";
 import { getWallpaperAndAttribute } from "./wallpaperPicker.js";
 import { getModule, getAttribute } from "./requireModules.cjs";
 import { readFile } from "./fileReader.js";
+import { openMenu } from "./settingsMenu.js";
 
 const backGround = document.querySelector(".bg-image");
 const attributeParent = document.querySelector(".attribute");
@@ -13,6 +14,9 @@ const langInput = document.querySelector(".lang-input");
 const PersipitationImg = document.querySelector(".persipitation-img");
 const humidityImg = document.querySelector(".humidity-img");
 const windImg = document.querySelector(".wind-img");
+
+const settingsBtn = document.querySelector(".settings-btn");
+const settingsIcon = document.querySelector(".settings-img");
 
 const conditionIcon = document.querySelector(".condition-icon");
 const conditionText = document.querySelector(".condition-text");
@@ -33,6 +37,9 @@ const buttons = dayButtonsList.children;
 
 const hoursList = document.querySelector(".hours-list");
 
+settingsBtn.addEventListener("click", () => {
+  openMenu();
+});
 getInfoBtn.addEventListener("click", () => {
   const _city = cityInput.value;
   const _lang = langInput.value;
@@ -77,6 +84,8 @@ function setWeatherUI(
   PersipitationImg.src = getModule("./Icons/Persipitation.png");
   humidityImg.src = getModule("./Icons/Humidity.png");
   windImg.src = getModule("./Icons/Wind.png");
+
+  settingsIcon.src = getModule("./Icons/Settings.png");
 
   //hours
   for (let i = 0; i < hours.length; i++) {

@@ -1,4 +1,5 @@
 import "./visual.js";
+import "./settingsMenu.js";
 import "./requireModules.cjs";
 import "./style.css";
 import getData from "./weatherRequest.js";

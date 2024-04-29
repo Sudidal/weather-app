@@ -17,6 +17,11 @@
     </div>
     <div class="panel">
     <div class="info-div">
+        <div class="settings-icon">
+            <button class="settings-btn">
+                <img class="settings-img" src="" alt="" width="50px">
+            </button>
+        </div>
         <div class="day-select-section">
             <div class="buttons-list">
                 <button>
@@ -122,5 +127,46 @@
     <div class="attribute">
         <div class="attribute-text"></div>
     </div>
+    <dialog class="settings-dialog">
+        <button class="close-btn">x</button>
+        <div class="options">
+            <div class="option-section">
+                <label class="main-label">Temperature Unit</label>
+                <span>
+                    <span>
+                        <label for="c">C</label>
+                        <input type="radio" id="c" name="tu">
+                    </span>
+                    <span>
+                        <label for="f">F</label>
+                        <input type="radio" id="f" name="tu">
+                    </span>
+                </span>
+            </div>
+            <div class="option-section">
+                <label class="main-label">Distance Unit</label>
+                <span>
+                    <span>
+                        <label for="kph">kph</label>
+                        <input type="radio" id="kph" name="dis">
+                    </span>
+                    <span>
+                        <label for="mph">mph</label>
+                    <input type="radio" id="mph" name="dis">
+                    </span>
+                </span>
+            </div>
+            <div class="option-section">
+                <label class="main-label" for="12h-check">12-hours system</label>
+                <input type="checkbox" id="12h-check">
+            </div>
+            <div class="option-section">
+                <label class="main-label" for="city">City</label>
+                <input type="text" id="city" placeholder="Enter your city name">
+            </div>
+        </div>
+        <button class="save-btn">Save</button>
+    </div>
+    </dialog>
 </body>
 </html>

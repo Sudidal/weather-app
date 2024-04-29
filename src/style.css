@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
-* {
+*:not(dialog) {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -167,11 +167,11 @@ button {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
-.day-select-section button.unselected{
+.day-select-section button.unselected {
   background-color: rgba(0, 0, 0, 0.178);
   border: none;
 }
-.day-select-section button.selected{
+.day-select-section button.selected {
   background-color: rgba(0, 0, 0, 0.342);
   border: 1px black solid;
   height: 45px;
@@ -184,7 +184,91 @@ button {
   width: 30px;
 }
 
-.attribute {
+.settings-icon {
+  position: absolute;
+  right: calc(15% + 20px);
+  top: calc(10% - 50px);
+}
+.settings-btn {
+  background: none;
+  border: none;
+}
+.settings-img {
+  width: 40px;
+  height: 40px;
+}
+.settings-dialog {
+  width: 350px;
+  height: 250px;
+  border-radius: 20px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.836);
+  padding: 0;
+}
+.settings-dialog .options {
+  height: 100%;
+  gap: 10px;
+  padding: 15px;
+  padding-top: 35px;
+  display: flex;
+  flex-direction: column;
+}
+.settings-dialog .options .option-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.settings-dialog .main-label {
+  grid-column: 1 / 2;
+}
+.settings-dialog input, .settings-dialog span {
+  grid-column: 2 / 3;
+}
+.settings-dialog input {
+  margin-right: 10px;
+}
+.settings-dialog .close-btn {
+  float: right;
+  width: 30px;
+  height: 30px;
+  border: 1px solid white;
+  border-radius: 20px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 0;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  background-color: transparent;
+}
+.settings-dialog .close-btn:hover {
+  background-color: red;
+  border: none;
+}
+.settings-dialog .save-btn {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+  background-color: transparent;
+  border: 1px solid white;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+.settings-dialog .save-btn:hover {
+  border: none;
+  background-color: rgb(87, 87, 87);
+}
+.settings-dialog input[type="text"]{
+  font-size: 10px;
+  color: black;
+  width: 100px;
+}
+.settings-dialog input[type="checkbox"]{
+  width: fit-content;
+}
+.settings-dialog .attribute {
   position: absolute;
   bottom: 20px;
   font-size: 12px;

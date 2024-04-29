@@ -8,19 +8,20 @@ const tempInput = dialog.querySelectorAll("[name='temp-unit']");
 const disInput = dialog.querySelectorAll("[name='dis-unit']");
 const hoursSystem = dialog.querySelector("#hours-check");
 const cityInput = dialog.querySelector("#city-input");
+const countryInput = dialog.querySelector("#country-input");
 
 closeBtn.addEventListener("click", () => {
   closeMenu();
 });
 saveBtn.addEventListener("click", () => {
-  setOptions();
-  closeMenu();
+  if (setOptions()) closeMenu();
 });
 
 function openMenu() {
   const curOptions = getOptions();
   hoursSystem.value = curOptions.getTHS();
   cityInput.value = curOptions.getCity();
+  countryInput.value = curOptions.getCountry();
 
   for (let i = 0; i < tempInput.length; i++) {
     if (tempInput[i].value === getOptions().getTempUnit()) {
@@ -44,6 +45,7 @@ function setOptions() {
   let disValue = "";
   let THS = "";
   let cityValue = "";
+  let countryValue = "";
 
   for (let i = 0; i < tempInput.length; i++) {
     if (tempInput[i].checked) {
@@ -52,6 +54,7 @@ function setOptions() {
   }
   if (tempValue === "") {
     console.log("No temperature unit selected");
+    return false;
   }
 
   for (let i = 0; i < disInput.length; i++) {
@@ -61,6 +64,7 @@ function setOptions() {
   }
   if (disValue === "") {
     console.log("No distance unit selected");
+    return false;
   }
 
   if (hoursSystem.checked) {
@@ -72,6 +76,13 @@ function setOptions() {
   cityValue = cityInput.value;
   if (cityValue === "") {
     console.log("No city was entered");
+    return false;
+  }
+
+  countryValue = countryInput.value;
+  if (countryValue === "") {
+    console.log("No country was entered");
+    return false;
   }
 
   const newOptions = {
@@ -79,9 +90,11 @@ function setOptions() {
     disValue,
     THS,
     cityValue,
+    countryValue,
   };
 
   updateOptions(newOptions);
+  return true;
 }
 
 export { openMenu };

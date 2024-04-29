@@ -27,8 +27,7 @@ button {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  filter: blur(4px);
-  filter: brightness(70%);
+  filter: blur(4px) brightness(70%);
 }
 .panel {
   width: 70%;
@@ -286,4 +285,22 @@ button {
 }
 .attribute-text a {
   color: rgba(255, 255, 255, 0.651);
+}
+
+dialog {
+  animation: fade-in 0.3s ease-out;
+}
+
+@keyframes fade-in {
+0% {
+  opacity: 0;
+  transform: scale(0);
+  display: none;
+}
+
+100% {
+  opacity: 1;
+  transform: scale(1);
+  display: block;
+}
 }

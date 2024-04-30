@@ -4,6 +4,7 @@ import "./style.css";
 
 const getStartedBtn = document.querySelector(".get-started-btn");
 const findLocationBtn = document.querySelector(".find-location-btn");
+let locationText; //initialized at runtime
 
 const cityInput = document.querySelector(".city-input");
 const countryInput = document.querySelector(".country-input");
@@ -15,7 +16,10 @@ getStartedBtn.addEventListener("click", () => {
   getStarted();
 });
 findLocationBtn.addEventListener("click", () => {
-  findLocationBtn.textContent = "Please Wait";
+  locationText = document.createElement("p");
+  locationText.className = "location-text";
+  locationText.textContent = "Please wait...";
+  findLocationBtn.replaceWith(locationText);
   getLocation(onLocationReceive);
 });
 
@@ -33,7 +37,12 @@ getStartedBtn.disabled = true;
 function onLocationReceive(data) {
   cityValue = data[0];
   countryValue = data[1];
-  findLocationBtn.textContent = data[0] + " " + data[1];
+  locationText.textContent =
+    "Your location is: " +
+    data[0] +
+    " " +
+    data[1] +
+    ", You can start using the app now";
   getStartedBtn.disabled = false;
   cityInput.disabled = true;
   countryInput.disabled = true;

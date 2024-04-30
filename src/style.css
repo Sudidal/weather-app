@@ -1,64 +1,82 @@
-@import url('https://fonts.googleapis.com/css2?family=Platypi:ital,wght@0,300..800;1,300..800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Platypi:ital,wght@0,300..800;1,300..800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Ubuntu, Platypi, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Roboto, sans-serif;
 }
 button:enabled {
-    cursor: pointer;
+  cursor: pointer;
 }
 .wrapper {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    background-image: linear-gradient(#BFF098, #6FD6FF);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  background-image: linear-gradient(#bff098, #6fd6ff);
 }
 .header {
-    margin-bottom: 20px;
-    font-size: 40px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
+  margin-bottom: 20px;
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  font-family: Ubuntu;
 }
 .find-location-btn {
-    padding: 8px;
-    border: none;
-    border-radius: 10px;
+  padding: 8px;
+  border: none;
+  border-radius: 10px;
 }
 input {
-    width: 120px;
-    border: none;
-    border-radius: 8px;
-    padding: 3px;
-    font-size: 12px;
+  width: 120px;
+  border: none;
+  border-radius: 8px;
+  padding: 3px;
+  font-size: 12px;
 }
 .get-started-btn {
-    margin-top: 70px;
-    width: 140px;
-    height: 30px;
-    padding: 5px;
-    border: none;
-    border-radius: 8px;
-    background-color: #BFF098;
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: 1.1px;
+  margin-top: 70px;
+  width: 140px;
+  height: 30px;
+  padding: 5px;
+  border: none;
+  border-radius: 8px;
+  background-color: #bff098;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 1.1px;
+  font-family: Platypi;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+.location-text {
+    font-size: 14px;
+    color: rgb(44, 44, 44);
+    border: 1px solid rgb(110, 110, 110);
+    border-radius: 5px;
+    padding: 5px;
+}
+
 .get-started-btn:enabled {
-    animation: fade-in 0.3s ease-out;
-  }
-  
-  @keyframes fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+.get-started-btn:hover:enabled {
+    width: 150px;
+    font-size: 16px;
+}
+
+@keyframes fade-in {
   0% {
     opacity: 0;
     transform: scale(0);
     display: none;
   }
-  
+
   100% {
     opacity: 1;
     transform: scale(1);

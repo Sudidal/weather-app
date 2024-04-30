@@ -1,7 +1,15 @@
 async function getLocation(callback) {
   navigator.geolocation.getCurrentPosition(async (response) => {
+    console.log(
+      "found location at: lat: " +
+        response.coords.latitude +
+        " long: " +
+        response.coords.longitude,
+    );
+    console.log("sending request to nominatim.openstreetmap.org");
     getLocationName(response.coords.latitude, response.coords.longitude).then(
       (result) => {
+        console.log("received user location name");
         callback(result);
       },
     );

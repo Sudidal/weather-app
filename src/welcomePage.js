@@ -62,5 +62,6 @@ function getStarted() {
     country: countryValue,
   };
   save(obj);
-  document.location.replace("/weatherInfo.html");
+  document.location.replace(document.location.pathname + "/weatherInfo.html");
+  console.log(document.location.pathname + "/weatherInfo.html");
 }

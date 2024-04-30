@@ -4,7 +4,7 @@ import "./requireModules.cjs";
 import "./weatherStyle.css";
 import { save, load } from "./saveLoadManager.js";
 import getData from "./weatherRequest.js";
-import { assign, getDataObject } from "./getDataObject";
+import { assign, getDataObject } from "./getDataObject.js";
 import { setWeatherUI } from "./visual.js";
 
 const hoursAhead = 6;
